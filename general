@@ -1,0 +1,384 @@
+:::::::::::::::::::::::::::::::::::::::::BASE DE DATOS::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::POSTGRES
+:::::::::::::::::::::::::::::::::::::::::::
+// Comando para iniciar el servicio de postgres
+sudo su - postgres
+
+// Comando para ingresar a la consulta de postgres
+psql
+
+:::::::::::::::::::::::::::::::::::::::::FRONT-END::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+//Para revisar procesos corriendo del tomcat
+ps aux | grep tomcat
+
+
+//Eliminar paquetes
+sudo apt-get --purge remove ...nombre del paquete
+
+//Encontrar pid por puerto
+netstat -ano | findstr :4200
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::ANGULAR
+:::::::::::::::::::::::::::::::::::::::::::
+
+[Descargar ultima version]
+
+npm install -g @angular/cli
+
+[Descargar version especifica]
+npm install -g @angular/cli@1.0.0
+
+[Decidir ruta del proyecto]
+cd my-project
+
+[Crear nuevo proyecto]
+ng new my-project
+
+[Iniciar server de angular]
+ng serve
+
+[Crear paquete de componente]
+--------------------------------------------
+ ng g c --name "nombre"
+-------------------------------------------- 
+ng g c home/consultar-guia --flat -is --spec=false
+flat: no crea carpeta
+spec:  no crear archivo de pruebas
+--------------------------------------------
+
+[Desinstalar angular]
+npm uninstall -g @angular/cli
+
+[Limpiar cache]
+npm cache clean
+
+[Problemas sass]
+npm rebuild node-sass
+
+[Bajar el server]
+--------------------------------------------
+sudo kill $(sudo lsof -t -i:4200)
+--------------------------------------------
+fuser -n tcp "3000"<-Puerto
+kill -9 "7425"<-PID
+--------------------------------------------
+
+[Compilacion del proyecto]
+npm run ng build --prod
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::JSF
+:::::::::::::::::::::::::::::::::::::::::::
+
+[AUTOCOMPLETAR]
+xmlns:cs="http://creandosoft.com/ui"
+
+<cs:csAutoComplete
+	value="#{objeto.arl}"
+	completeMethod="#{autocompletarFormBean.completeFondoArl}"
+	var="p" 
+	itemLabel="#{p.descripcion}" 
+	itemValue="#{p}"
+	converter="autoConverter" 
+	forceSelection="true"
+	size="#{usuario.filasAutoCompletar-10}"
+	autoCompleteId="TB_FONDO_ARL"
+	scrollHeight="#{usuario.scrollHeight}"/>
+	
+<p:ajax event="itemSelect" update="destinatario" listener"#{}"/>
+
+</cs:csAutoComplete>
+	
+[CALENDAR]
+
+<p:calendar 
+	value="#{queryObject.fechaInicio}" 
+	showOn="button"
+	locale="#{usuario.localidad}" 
+	navigator="true"
+	pattern="#{usuario.formatoFecha}" 
+	size="10" 
+	disabled="false"
+	onkeydown="formatearFecha(this)"
+	onkeypress="formatearFecha(this)" 
+	maxlength="10" 
+	effect="fade" />
+
+[OUTPUTLABEL]
+
+<p:outputLabel value="#{msgResource.lbl_pages_recovery_arl_edit_header_date_disability}" />
+
+[COMMANDBUTTON]
+
+<p:commandButton 
+	value="#{msgResource.cmd_buscar}"
+	id="cmdBuscar" icon="ui-icon-search"
+	title="#{msgResource.tip_buscar}" style=" margin-bottom:10px;"
+	styleClass="secondary textColorWhite"
+	action="#{recoveryArlFormBean.enviarBuscar}" ajax="false"
+	onclick="mostrarBloqueo()" />
+
+[DATATABLE]
+	
+<p:contextMenu for="dtMtto">
+	<p:menuitem 
+		value="#{msgResource.cmd_eliminar}" 
+		update="dtMtto"
+		styleClass="Fs12" icon="ui-icon-delete"
+		actionListener="#{tbEscalaImcFormBean.enviarBorrar}"
+		ajax="false" />
+</p:contextMenu>
+
+<p:dataTable id="dtMtto" var="iteraQuery"
+	value="#{tbEscalaImcFormBean.list}" paginator="true"
+	paginatorPosition="bottom" rows="#{usuario.lineas}"
+	pageLinks="#{usuario.links}"
+	rowKey="#{iteraQuery.consecutivo}"
+	selection="#{tbEscalaImcFormBean.selectedObject}"
+	selectionMode="single" styleClass="mantenimientoResultados"
+	reflow="true" emptyMessage="#{msgResource.titulo_panel_no_datos}">
+
+	<p:column styleClass="centered" width="5%">
+		<p:commandButton action="#{tbEscalaImcFormBean.enviarEditar}"
+			ajax="false" icon="ui-icon-create"
+			title="#{msgResource.tip_editar}"
+			styleClass="BlueTextButton RaisedButton"
+			onclick="mostrarBloqueo()">
+			<f:param name="llaveProceso"
+				value="#{iteraQuery.consecutivo}" />
+		</p:commandButton>
+	</p:column>
+
+	<p:column styleClass="righted" width="10%"
+		headerText="#{msgResource.lbl_page_vigilancia_escala_imc_query_tabla_imc}">
+		<h:outputText value="#{iteraQuery.consecutivo}"></h:outputText>
+	</p:column>
+	
+</p:dataTable>
+
+[CREAR OBJETO EN VISTA]
+
+<ui:param name="objeto" value="#{auditManagementFormBean.object" />
+
+[NUMBER]
+
+<p:inputNumber 
+	thousandSeparator="."
+	decimalSeparator="," 
+	inputStyleClass="numero"
+	value="#{objetoI.valorTotalRecobro}" 
+	decimalPlaces="2">
+	<p:ajax event="change" update="valorTotalRecobro" listener="#{recoveryArlFormBean.validarRecobro(objetoI)}"/>
+</p:inputNumber>
+
+[DIALOG O POPUP]
+
+ <p:dialog id="dialogoDetalleFacturas" 
+	header="#{msgResource.lbl_pages_factura_electronica_titulo}"
+	widgetVar="dlgDetalleFacturas" modal="true" dynamic="false" 
+	resizable="false" showEffect="fade" hideEffect="fade" 
+	styleClass="modalDashboard"> 
+	<ui:fragment> 
+		<ui:include 
+			src="/pages/procesos/facturacionelectronicarecibida/facturacionelectronicarecibidadetalle.xhtml" /> 
+	</ui:fragment> 
+</p:dialog> 
+
+[COMBO]
+
+<p:selectOneMenu value="#{objeto.tipoPreferencia}"
+	effect="fade" style="text-align:left;">
+	<f:selectItem itemLabel="-" itemValue="-1" />
+	<f:selectItems
+		value="#{comboFormBean.getCombo('COMBO_TYPE_PREFERENCE')}"
+		var="combo" itemLabel="#{combo.nombre}"
+		itemValue="#{combo.id}" />
+</p:selectOneMenu>
+
+[INPUTTEXT]
+
+<p:inputText style="text-transform: uppercase"
+	converter="toUpperCaseConverter" maxlength="20"
+	value="#{afDespues.numeroIdentificacion}" />
+
+-----------------------------------------------------
+----ESTRUCTURA GENERICAS
+-----------------------------------------------------
+
+[BOTONES ATRAS Y ACTUALIZAR]
+
+<div class="ui-g">
+	<div class="#{objeto.gestionCerrada?'ui-g-5 ui-md-6 ui-lg-5':'ui-g-5 ui-md-3 ui-lg-4'}"></div>
+	<div class="ui-g-12 ui-md-6 ui-lg-4">
+		<div class="ui-g-4 ui-md-4">
+			<p:commandButton value="#{msgResource.cmd_anterior}"
+				icon="ui-icon-reply" title="#{msgResource.tip_anterior}"
+				style=" margin-bottom:10px;"
+				styleClass="secondary textColorWhite"
+				action="#{auditManagementFormBean.enviarAnterior}" ajax="false"
+				onclick="mostrarBloqueo()" />
+			<div class="EmptyBox5 ShowOnMobile"></div>
+		</div>
+		<div class="ui-g-4 ui-md-4">
+			<p:commandButton value="#{msgResource.cmd_actualizar}"
+				id="cmdActualizar" icon="ui-icon-autorenew"
+				title="#{msgResource.tip_actualizar}"
+				style=" margin-bottom:10px;"
+				styleClass="secondary textColorWhite"
+				action="#{auditManagementFormBean.enviarActualizar}"
+				ajax="false" onclick="mostrarBloqueo()" />
+			<p:defaultCommand target=":formMtto:cmdActualizar" />
+			<div class="EmptyBox5 ShowOnMobile"></div>
+		</div>
+	</div>
+	<div class="ui-g-4 ui-md-3 ui-lg-4"></div>
+</div>
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::STRUST
+:::::::::::::::::::::::::::::::::::::::::::
+
+[LABEL]
+	[NORMAL]
+		<bean-el:message key="lbl.pages.mipresprescripcion.consulta.filtro.fecha_inicio" bundle="${usuario.idioma}" />
+	[NEGRITA]
+	<strong><bean-el:message key="lbl.mtto.vehiculo.vinculacion" bundle="${usuario.idioma}"  />:</strong> 
+
+[BOTONES CONSULTA]
+
+<table class="letra" cellpadding="2" cellspacing="2" align="center">
+	<tr>
+		<td align="left">
+			<LABEL
+				title="<bean-el:message key="tip.buscar" bundle="${usuario.idioma}" />">
+				<html:button property="enviar"
+					onclick="enviarFormulario('Buscar');return false"
+					styleClass="boton1">
+					<bean-el:message key="cmd.buscar" bundle="${usuario.idioma}" />
+				</html:button>
+			</LABEL>
+		</td>
+		<td align="left">
+			<LABEL
+				title="<bean-el:message key="tip.limpiar" bundle="${usuario.idioma}" />">
+				<html:button property="enviar"
+					onclick="enviarFormulario('Borrador');return false"
+					styleClass="boton1">
+					<bean-el:message key="cmd.limpiar" bundle="${usuario.idioma}" />
+				</html:button>
+			</LABEL>
+		</td>
+		<td align="left">
+			<LABEL
+				title="<bean-el:message key="tip.exportar" bundle="${usuario.idioma}" />">
+				<html:button property="enviar"
+					onclick="enviarFormulario('Exportar');return false"
+					styleClass="boton1">
+					<bean-el:message key="cmd.exportar" bundle="${usuario.idioma}" />
+				</html:button>
+			</LABEL>
+		</td>
+	</tr>
+</table>
+
+[FECHA]
+<html:text  
+	name="logauditoriaautorizacionFormBean" 
+	property="cierreFinC" 
+	size="10" 
+	maxlength="10"
+	onkeyup="formatearFecha(this);" 
+	onkeypress="formatearFecha(this);"
+	onclick="popUpCalendar(this, this);return false"
+	styleId="txtCierreFin"
+	/>
+	
+[POPUP]
+<html-el:text 
+	name="contratostarifacupsFormBean" 
+	property="razonSocialIpsC" 
+	maxlength="100" 
+	size="50"
+	styleId="txtIpsDescripcion" 
+	styleClass="popup" 
+	onclick="seleccionar(this);"
+	onfocus="tablaGlobal='TB_IPS';abiertoGlobal='NO_OK';codigoGlobal=document.getElementById('txtIps');descripcionGlobal=document.getElementById('txtIpsDescripcion');"
+	onchange="getValor('TB_IPS',this.value,'',-1,'txtIps','txtIpsDescripcion','NO');"
+	/>
+
+[TEXT]
+<html:text 
+	property="numeroContratoC" 
+	name="contratostarifacupsFormBean" 
+	size="30" 
+	maxlength="30"
+	styleId="txtNumeroContrato" 
+	/>
+	
+[COMBO]
+<html:select 
+	name="loginFormBean" 
+	property="vista" 
+	styleId="txtVista">
+	<html:options 
+		collection="listaTipoVista" 
+		property="valor" 
+		labelProperty="texto"/>
+</html:select>
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::FLUTTER
+:::::::::::::::::::::::::::::::::::::::::::
+
+export PATH="$PATH:/home/system/Documentos/Tecnologias/Android/Flutter/flutter/bin"
+flutter build apk --split-per-abi
+
+:::::::::::::::::::::::::::::::::::::::::BACK-END::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::SPRING
+:::::::::::::::::::::::::::::::::::::::::::
+
+//Como obtener una entidad por campo primary key
+CtPacienteComplemento complemento = dao().getEm().find(CtPacienteComplemento.class, paciente.getConsecutivoPaciente());
+
+//Relacion falsa
+@ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "CodServicio", insertable = false, updatable = false)
+  private TFacturable tFacturable;
+
+//Varios campos
+  @JoinColumns({ @JoinColumn(name = "CodDocumento", referencedColumnName = "CodDocumento", insertable = false, updatable = false), @JoinColumn(name = "NumDocumento", referencedColumnName = "NumDocumento", insertable = false, updatable = false), @JoinColumn(name = "NumDocumentoCC", referencedColumnName = "NumNegocio", insertable = false, updatable = false) })
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  private MFactura mFactura;
+  
+//Incrementar consecutivo
+dao().getSequence(NextValues.TB_PERFIL)
+
+// Mergue
+dao().getEm().merge(complemento);
+
+//Método para conseguir el dto de una clase por el consecutivo (Long)
+@Override
+  @Transactional(propagation = Propagation.REQUIRED)
+  public Object getObjetoPorConsecutivo(Object object) {
+    try {
+      return dao().getEm().find(((FmDto) object).getEntity().getClass(), Long.parseLong(((FmDto) object).getKeyValue().toString())).getDto();
+    }
+    catch (Exception e) {
+      LOG.error(e.getMessage(), e);
+      throw new RuntimeException(e);
+    }
+  }
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::STRUST
+:::::::::::::::::::::::::::::::::::::::::::
+
+//Incrementar consecutivo
+this.getConsecutivo(EConsecutivo.SIIC_TB_PROCESO_CONSECUTIVO_SIIGO.getNombre())
