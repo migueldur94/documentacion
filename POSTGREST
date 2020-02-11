@@ -1,0 +1,9 @@
+-> Sentencia para eliminar una base de datos
+DROP DATABASE 'nombre de la base de datos';
+
+-> Sentencia para saca
+UPDATE pg_database SET datallowconn = 'false' WHERE datname = 'mydb';
+
+
+FUENTES
+https://dba.stackexchange.com/questions/11893/force-drop-db-while-others-may-be-connected
