@@ -1,0 +1,3 @@
+Comando para configurar que todos los push queden a nombre de un solo usuario
+git config --global user.name [nombre del usuario]
+git config --global user.email [email]
