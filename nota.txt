@@ -41,39 +41,29 @@ Android:
 Back-end
 Java: Este proyecto maneja la tecnología de socket
 
-UPDATE tienda_click_db_test.chat_detalle tut 
-	INNER JOIN tienda_click_db.usuario u ON tut.USUARIO_GRABADO = SUBSTRING(u.EMAIL,1,LOCATE('@',u.EMAIL)-1) 
-SET tut.USUARIO_GRABADO = u.EMAIL 
-WHERE 1=1
+2- Mensaje de cortina - marcar leído (eliminar mensaje de cortina)
+Gmail y Facebook cuando se de eliminar que cierre sesión
 
--> Crear script del campo de TOKEN_PUSH en la tabla usuario
--> Crear script para crear tabla notificacion y notificacion_usuario
-
-Notificación
--> Tendero: Que lo redirija a la pantalla de administración del usuario
--> Usuario: Debería ir al chat
--> Colaborador
-
--> Colocarle TiendaClick.co en las notificaciones
 
 Ultimo commit:
-Android->56
-Java->24
+Android->71
+Java->143
+
+jdbc:mysql://66.97.32.198:3306/tienda_click_produccion
+qazwsx12A.
+root
+tienda_click_produccion
+
+ALTER TABLE tienda_click_db_test.notificacion ADD URL_IMAGEN varchar(200) NULL;
+
+
 
 Corrido en nativo
-ALTER TABLE tienda_click_db_test.chat_detalle MODIFY COLUMN MENSAJE varchar(1000) CHARACTER SET latin1 COLLATE latin1_general_ci NULL;
+ALTER TABLE tienda_click_db_test.chat_detalle ADD SW_VISIBLE_ROL_CLIENTE smallint(6) DEFAULT 1 NOT NULL;
 
 
 Producción
-ALTER TABLE tienda_click_db_test.chat_detalle ADD SW_VISTO smallint(6) DEFAULT 0 NOT NULL;
-ALTER TABLE tienda_click_db_test.chat_detalle ADD SW_TIPO_MENSAJE smallint(6) DEFAULT 0 NOT NULL;
-ALTER TABLE tienda_click_db_test.chat_detalle ADD URL_ARCHIVO varchar(200) NULL;
-ALTER TABLE tienda_click_db_test.notificacion_usuario ADD SW_VISTO smallint(6) DEFAULT 0 NOT NULL;
-ALTER TABLE tienda_click_db_test.chat_detalle MODIFY COLUMN MENSAJE varchar(500) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL;
 
-
-
-Cuando estemos en eso tb listos, seria trabajar lo siguiente que tenemos como son los emojis y lo de enviar imágenes que es tb otro cuento jejej
 
 
 =====================
@@ -280,24 +270,31 @@ Revisar lo de company en person en la tabla tambien
 20:30-23:00 I passed to component person tab
 08 Febrero
 21:00-24:00 I implemented the list of results of alcohol
+23 Febrero
+22:00-24:00 I implemented the box percentage 
+24 Febrero 
+22:30-23:00 I fixed percentage box
+07 Marzo
+21:00-22:30 I met with Hector to talk about new things for implementing in the system
+10 Marzo 
+21:30-24:00 I implemented the field percentage drug and alcohol in the page distribution-list and the main list of person was updated by button acept 
+18 Marzo
+10-12 I worked in the page history
+20 Marzo
+21-24 I advanced in the implementation of page history
+24 Marzo 
+20:30-22:00 I met with Hector and improve the history page
+28 Marzo 
+12:00-16:30 I worked in separeted popup from testing and pass it to component
+	
+Icono de testing en historia , y sacar a componente el popup y implementar la opción de descargar y utilizar para descargar el mismo que esta en hub
+Icono de descarga global
+Opción para cancelar un random-pool, pero debe estar en estado new o runing, y solo se muestra el botón de cancelar cuando esta en estado new or running
 
-distribution-list: reducir el boton 
-					dos cajas de porcentaje donde al menos uno debería estar lleno
-					el servicio de ramdon debe enviar un json con dos campos
-						{
-							drugPercentage: 10,
-							alcoholPercentage: 30
-						}
 
-Testing colocar el boton de descargar
-Leet pdf del whatsapp en la sección IV
+1) Crear servicio rest para descargar todos las pruebas
+2) 
 
 
-Pragma
-UpWork
-
-
-
-
-
-
+mvn spring-boot:run
+mvn clean install -DskipTests

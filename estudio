@@ -37,3 +37,48 @@ Artefactos
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 https://refactoring.guru/es/design-patterns/java
+
+- Factory: Se utiliza cuando se necesita tener diferentes objetos que implementan un método para que se le asigne el comportamiento y así poder consultar alguno de acuerdo al uso
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::PATRON ARQUITECTURA MVC
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+El Patrón de Arquitectura MVC tiene los siguientes elementos:
+
+Capa de Modelo: Organización y estructura de todas las clases o componentes relacionados con la base de datos.
+Capa de Negocio: Reglas, análisis y requerimientos funcionales principales o secundarios de la aplicación.
+Capa de Vista: Formularios y componentes visuales con los que los usuarios deben interactuar.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::PRINCIPIO SOLID
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+https://profile.es/blog/principios-solid-desarrollo-software-calidad/
+
+Unica Responsabilidad
+Abierto/Cerrado: Abierto a extensiones pero cerrado a modificaciones
+Principio de sustitución: No tener metodos vacios de las implementacion, mejor dividir en interfaces para cada metodo
+Principio Segregacion: Hacer interfaces que sean específicas
+Inversion de dependencias: Debemos de tener interfaces para no depender de la implementación
+
+
+S – Single Responsibility Principle (SRP)
+=> Cuando vayamos a implementar alguna parte de código debemos estructurar la clase o el método para que haga lo que debe hacer,
+que por ejemplo si vamos hacer una conexión no haga una encriptación y que no valide si es seguro o no, deberíamos separar en diferentes
+métodos para que encripte y otro para que valide si el sql es válido
+O – Open/Closed Principle (OCP):
+=> Abierto a extensión y cerrador a implementación, si necesitamos crear una conexión a una base de datos no deberíamos tener un método
+para cada conexión de base de datos, deberíamos crear un interface donde tenga una firma llamada conexion y que diferentes clases
+que tendran el nombre de la base datos y que cada una implementara la interface para que el método que se implementa tenga la conexión
+así cada clase tendra su implementación y si llegamos a necesitar otra conexión a otra base de datos no tendremos que molestar a las clases
+existentes
+L – Liskov Substitution Principle (LSP):
+La idea es definir interfaces lo mas detallado posible, al momento de crear un repositorio para las consultas sql y colocamos todo allí,
+esto genera que si queremos implementar unas cuantas consultas, tendríamos que implementar todas las demas y la idea es solo implementar las que necesito,
+para esto se debe crear implementaciones de acuerdo al proceso.
+I – Interface Segregation Principle (ISP):
+Este principio funciona con el ejemplo anterior, si necesitamos consultar un usuario y tenemos que crear un usuario, la idea estener una interface 
+para consultar y otro para crear, ya que cuando vayamos a necesita el consultar un usuario desde otro lugar tendría que implementar el crear
+D – Dependency Inversion Principle (DIP)
+no depender directamente de una clase si no de una interface

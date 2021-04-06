@@ -506,6 +506,7 @@ Pagina --> https://hub.docker.com/
 //Para que el usuario de la sesión de linux no tenga que esta colocando sudo al inicio de las sentencias
 sudo usermod -aG docker nombre_usuario
 -> Despues cerramos sesión para que tome los cambios
+bibliografia ====> https://linoxide.com/use-docker-without-sudo-ubuntu/
 
 //Para visualizar la información del contenedor
 
@@ -542,7 +543,7 @@ docker rm $(docker ps -aq)
 // Listar los ids de los contenedores
 docker ps -aq
 
-// Hacer que todos los comandos se realicen en la misma terminar
+// Hacer que todos los comandos se realicen en la misma terminar, si quieres ingresar a la terminal del contenedor en nombre_comando coloca bash
 docker exec -it nombre_contenedor nombre_comando
 
 [Puertos]
