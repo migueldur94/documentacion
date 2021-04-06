@@ -17,9 +17,8 @@ https://software.opensuse.org/download/package?project=isv:ownCloud:desktop&pack
 
 - arq.juancarlosjaimes2019 = 98b6ae12cf1150e11405778a9e89b9da8661cc1aa828cad419b5dd047c481f01
 
-top: 390
-width: 403
-height: 67
+usuario: manuelasoler14@gmail.com
+clave: tilito25
 =====================
 ========SGC
 =====================
@@ -56,6 +55,26 @@ Notificación
 -> Colaborador
 
 -> Colocarle TiendaClick.co en las notificaciones
+
+Ultimo commit:
+Android->56
+Java->24
+
+Corrido en nativo
+ALTER TABLE tienda_click_db_test.chat_detalle MODIFY COLUMN MENSAJE varchar(1000) CHARACTER SET latin1 COLLATE latin1_general_ci NULL;
+
+
+Producción
+ALTER TABLE tienda_click_db_test.chat_detalle ADD SW_VISTO smallint(6) DEFAULT 0 NOT NULL;
+ALTER TABLE tienda_click_db_test.chat_detalle ADD SW_TIPO_MENSAJE smallint(6) DEFAULT 0 NOT NULL;
+ALTER TABLE tienda_click_db_test.chat_detalle ADD URL_ARCHIVO varchar(200) NULL;
+ALTER TABLE tienda_click_db_test.notificacion_usuario ADD SW_VISTO smallint(6) DEFAULT 0 NOT NULL;
+ALTER TABLE tienda_click_db_test.chat_detalle MODIFY COLUMN MENSAJE varchar(500) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL;
+
+
+
+Cuando estemos en eso tb listos, seria trabajar lo siguiente que tenemos como son los emojis y lo de enviar imágenes que es tb otro cuento jejej
+
 
 =====================
 ========CONFORT
@@ -256,9 +275,29 @@ Revisar lo de company en person en la tabla tambien
 31 Enero
 22:30-23:00 I met with Hector
 02 Febrero
-20:30-
+20:30-24:00 I met with Hector and implemented the process about testing 
+04 Febrero
+20:30-23:00 I passed to component person tab
+08 Febrero
+21:00-24:00 I implemented the list of results of alcohol
+
+distribution-list: reducir el boton 
+					dos cajas de porcentaje donde al menos uno debería estar lleno
+					el servicio de ramdon debe enviar un json con dos campos
+						{
+							drugPercentage: 10,
+							alcoholPercentage: 30
+						}
 
 Testing colocar el boton de descargar
 Leet pdf del whatsapp en la sección IV
+
+
+Pragma
+UpWork
+
+
+
+
 
 

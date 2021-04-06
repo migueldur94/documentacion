@@ -1,30 +1,61 @@
 :::::::::::::::::::::::::::::::::::::::::BASE DE DATOS::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::HERRAMIENTAS
+:::::::::::::::::::::::::::::::::::::::::::
+[Dbeaver]
+Permite mostrar diferentes base de datos, desde una misma interfaz grafica sin importar cual es el motor de base de datos
+
+
+:::::::::::::::::::::::::::::::::::::::::::
 :::::::::::::::POSTGRES
 :::::::::::::::::::::::::::::::::::::::::::
-// Comando para iniciar el servicio de postgres
+
+::::::::Comandos::::::::
+
+[Iniciar el servicio de postgres]
 sudo su - postgres
 
-// Comando para ingresar a la consulta de postgres
+[Ingresar a la consulta de postgres]
 psql
+
+[Alterar un tipo de dato de una columna]
+ALTER TABLE table_name ALTER COLUMN column_name TYPE varchar(5000);
+
+[Alterar el nombre de una columna]
+ALTER TABLE table_name RENAME column_name TO new_column_name;
+
+[Eliminar tabla]
+DROP TABLE nombre_tabla
+
+[Eliminar campo]
+ALTER TABLE nombre_tabla DROP COLUMN nombre_columna
+
+[Cambiar columna not null]
+ALTER TABLE nombre_tabla ALTER COLUMN nombre_columna SET NOT NULL;
+
+[Cambiar columna null]
+ALTER TABLE nombre_tabla ALTER COLUMN nombre_columna DROP NOT NULL;
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::MYSQL
+:::::::::::::::::::::::::::::::::::::::::::
+
+::Docker
+docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=creandosoft -d mysql:5.7 --character-set-server=utf8 --collation-server=utf8_unicode_ci
+
+::Console
+[Para ingresar a mysql]
+mysql -u root -p
 
 :::::::::::::::::::::::::::::::::::::::::FRONT-END::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-//Para revisar procesos corriendo del tomcat
-ps aux | grep tomcat
-
-
-//Eliminar paquetes
-sudo apt-get --purge remove ...nombre del paquete
-
-//Encontrar pid por puerto
-netstat -ano | findstr :4200
-
 :::::::::::::::::::::::::::::::::::::::::::
 :::::::::::::::ANGULAR
 :::::::::::::::::::::::::::::::::::::::::::
+
+::::::::Comandos::::::::
 
 [Descargar ultima version]
 
@@ -64,12 +95,15 @@ npm rebuild node-sass
 --------------------------------------------
 sudo kill $(sudo lsof -t -i:4200)
 --------------------------------------------
-fuser -n tcp "3000"<-Puerto
+fuser -n tcp "4200"<-Puerto
 kill -9 "7425"<-PID
 --------------------------------------------
 
 [Compilacion del proyecto]
 npm run ng build --prod
+
+[En caso que no recompile]
+ng serve --poll=2000
 
 :::::::::::::::::::::::::::::::::::::::::::
 :::::JSF
@@ -240,8 +274,112 @@ xmlns:cs="http://creandosoft.com/ui"
 </div>
 
 :::::::::::::::::::::::::::::::::::::::::::
+:::::FLUTTER
+:::::::::::::::::::::::::::::::::::::::::::
+
+::::::::Comandos::::::::
+[Asignar path]
+export PATH="$PATH:/home/system/Documentos/Tecnologias/Android/Flutter/flutter/bin"
+
+[Construir apk]
+flutter build apk --split-per-abi
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::STYLUS
+:::::::::::::::::::::::::::::::::::::::::::
+
+::::::::Comandos::::::::
+
+[Instalar]
+npm i stylus
+
+[Ver y recompilar en caliente]
+stylus -w stylus/mi_estilo.styl -o stylus/mi_estilo.css
+
+
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::FRAMEWORK7
+:::::::::::::::::::::::::::::::::::::::::::
+
+::::::::Comandos::::::::
+ - 🔥 Run "npm run start" - run development server
+  - 🔧 Run "npm run dev" - run development server
+  - 🔧 Run "npm run build-dev" - build web app using development mode (faster build without minification and optimization)
+  - 🔧 Run "npm run build-prod" - build web app for production
+
+
+:::::::::::::::::::::::::::::::::::::::::BACK-END::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::SPRING
+:::::::::::::::::::::::::::::::::::::::::::
+
+//Como obtener una entidad por campo primary key
+CtPacienteComplemento complemento = dao().getEm().find(CtPacienteComplemento.class, paciente.getConsecutivoPaciente());
+
+//Relacion falsa
+@ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "CodServicio", insertable = false, updatable = false)
+  private TFacturable tFacturable;
+
+//Varios campos
+  @JoinColumns({ @JoinColumn(name = "CodDocumento", referencedColumnName = "CodDocumento", insertable = false, updatable = false), @JoinColumn(name = "NumDocumento", referencedColumnName = "NumDocumento", insertable = false, updatable = false), @JoinColumn(name = "NumDocumentoCC", referencedColumnName = "NumNegocio", insertable = false, updatable = false) })
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  private MFactura mFactura;
+  
+//Incrementar consecutivo
+dao().getSequence(NextValues.TB_PERFIL)
+
+// Mergue
+dao().getEm().merge(complemento);
+
+//Método para conseguir el dto de una clase por el consecutivo (Long)
+@Override
+  @Transactional(propagation = Propagation.REQUIRED)
+  public Object getObjetoPorConsecutivo(Object object) {
+    try {
+      return dao().getEm().find(((FmDto) object).getEntity().getClass(), Long.parseLong(((FmDto) object).getKeyValue().toString())).getDto();
+    }
+    catch (Exception e) {
+      LOG.error(e.getMessage(), e);
+      throw new RuntimeException(e);
+    }
+  }
+
+
+:::::::::::::::::::::::::::::::::::::::::::
 :::::STRUST
 :::::::::::::::::::::::::::::::::::::::::::
+
+[Conceptos]: Struts es una tecnología que utiliza a Java como lenguaje de programación
+[Route]
+"struts-config.....xml" En este archivo se van a configurar todas las rutas de las pantallas a donde se necesite ir, 
+en caso que no sea configurada en este archivo la aplicación mostrara un error
+<action path="/cargatbetapacovid" type="com.creandosoft.administrativo.mtto.actions.CargatbetapacovidmttoAction" >
+  <forward name="enviocargatbetapacovidmtto" path="/mtto/tbetapacovid.jsp" />
+</action>
+===> path="/cargatbetapacovid" 
+Es la ruta que se configura en el menú por que es la primera donde va a llegar, 
+no interesa el nombre que se le coloque pero este nombre es el se va a configurar con la extensión .do
+
+===> type="com.creandosoft.administrativo.mtto.actions.CargatbetapacovidmttoAction"
+Es el archivo java que se ejecuta al cargar la pantalla y este contiene las variables que se van a cargar la página
+
+===> name="enviocargatbetapacovidmtto"
+Este nombre debe ser igual al que esta en la variable "envio" del archivo Carga
+
+<action
+  attribute="tbetapacovidmttoFormBean"
+  input="/mtto/tbetapacovid.jsp"
+  name="tbetapacovidmttoFormBean"
+  path="/tbetapacovid"
+  scope="request"
+  type="com.creandosoft.administrativo.mtto.actions.TbetapacovidmttoAction" >
+  <forward name="reenviotbetapacovid" path="/mtto/tbetapacovid.jsp" />
+</action>
+
+
 
 [LABEL]
 	[NORMAL]
@@ -299,17 +437,24 @@ xmlns:cs="http://creandosoft.com/ui"
 	/>
 	
 [POPUP]
-<html-el:text 
-	name="contratostarifacupsFormBean" 
-	property="razonSocialIpsC" 
-	maxlength="100" 
-	size="50"
-	styleId="txtIpsDescripcion" 
-	styleClass="popup" 
-	onclick="seleccionar(this);"
+<html:hidden name="contratostarifacupsFormBean" property="ipsC" styleId="txtIps" />
+<LABEL title = "<bean-el:message key="tip.ayuda" bundle="${usuario.idioma}"/>">
+<html-el:text name="contratostarifacupsFormBean" property="razonSocialIpsC" maxlength="100" size="50"
+	styleId="txtIpsDescripcion" styleClass="popup" onclick="seleccionar(this);"
 	onfocus="tablaGlobal='TB_IPS';abiertoGlobal='NO_OK';codigoGlobal=document.getElementById('txtIps');descripcionGlobal=document.getElementById('txtIpsDescripcion');"
 	onchange="getValor('TB_IPS',this.value,'',-1,'txtIps','txtIpsDescripcion','NO');"
 	/>
+</LABEL>
+<LABEL title="<bean-el:message key="tip.clic" bundle="${usuario.idioma}"/>">
+	<html-el:button property="enviar" 
+		onclick="openChild('cargapopup.do?tabla=TB_IPS&abierto=NO_OK&cache=NO&aux=','win2');codigoGlobal=document.getElementById('txtIps');descripcionGlobal=document.getElementById('txtIpsDescripcion');"
+		styleClass="botonAyuda" value="A" />
+</LABEL>
+<LABEL title = "<bean-el:message key="tip.borrar" bundle="${usuario.idioma}"/>">
+	<html-el:button property="enviar" 
+	onclick="document.getElementById('txtIps').value='-1';document.getElementById('txtIpsDescripcion').value='';" 
+	styleClass="botonEliminar" value="A"/>
+</LABEL>
 
 [TEXT]
 <html:text 
@@ -325,60 +470,118 @@ xmlns:cs="http://creandosoft.com/ui"
 	name="loginFormBean" 
 	property="vista" 
 	styleId="txtVista">
+	<html:option value="-1">---------------</html:option>
 	<html:options 
 		collection="listaTipoVista" 
 		property="valor" 
 		labelProperty="texto"/>
 </html:select>
 
-:::::::::::::::::::::::::::::::::::::::::::
-:::::FLUTTER
-:::::::::::::::::::::::::::::::::::::::::::
-
-export PATH="$PATH:/home/system/Documentos/Tecnologias/Android/Flutter/flutter/bin"
-flutter build apk --split-per-abi
-
-:::::::::::::::::::::::::::::::::::::::::BACK-END::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::
-:::::SPRING
-:::::::::::::::::::::::::::::::::::::::::::
-
-//Como obtener una entidad por campo primary key
-CtPacienteComplemento complemento = dao().getEm().find(CtPacienteComplemento.class, paciente.getConsecutivoPaciente());
-
-//Relacion falsa
-@ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "CodServicio", insertable = false, updatable = false)
-  private TFacturable tFacturable;
-
-//Varios campos
-  @JoinColumns({ @JoinColumn(name = "CodDocumento", referencedColumnName = "CodDocumento", insertable = false, updatable = false), @JoinColumn(name = "NumDocumento", referencedColumnName = "NumDocumento", insertable = false, updatable = false), @JoinColumn(name = "NumDocumentoCC", referencedColumnName = "NumNegocio", insertable = false, updatable = false) })
-  @ManyToOne(optional = false, fetch = FetchType.LAZY)
-  private MFactura mFactura;
-  
-//Incrementar consecutivo
-dao().getSequence(NextValues.TB_PERFIL)
-
-// Mergue
-dao().getEm().merge(complemento);
-
-//Método para conseguir el dto de una clase por el consecutivo (Long)
-@Override
-  @Transactional(propagation = Propagation.REQUIRED)
-  public Object getObjetoPorConsecutivo(Object object) {
-    try {
-      return dao().getEm().find(((FmDto) object).getEntity().getClass(), Long.parseLong(((FmDto) object).getKeyValue().toString())).getDto();
-    }
-    catch (Exception e) {
-      LOG.error(e.getMessage(), e);
-      throw new RuntimeException(e);
-    }
-  }
-
-:::::::::::::::::::::::::::::::::::::::::::
-:::::STRUST
-:::::::::::::::::::::::::::::::::::::::::::
-
 //Incrementar consecutivo
 this.getConsecutivo(EConsecutivo.SIIC_TB_PROCESO_CONSECUTIVO_SIIGO.getNombre())
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::NODEJS
+:::::::::::::::::::::::::::::::::::::::::::
+
+::::::::Comandos::::::::
+
+[Limpiar los procesos que se corren con nodejs]
+sudo pkill -f node
+
+[Construir dist]
+npm run-script build
+
+:::::::::::::::::::::::::::::::::::::::::DEVOPS::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::DOCKER
+:::::::::::::::::::::::::::::::::::::::::::
+Descripcion: Docker esta hecho en go
+
+Pagina --> https://hub.docker.com/
+
+::::::::Comandos Linux::::::::
+
+//Para que el usuario de la sesión de linux no tenga que esta colocando sudo al inicio de las sentencias
+sudo usermod -aG docker nombre_usuario
+-> Despues cerramos sesión para que tome los cambios
+
+//Para visualizar la información del contenedor
+
+//Crear un contenedor
+docker run nombre_imagen
+
+// Para correr un contenedor
+docker start nombre_contenedor
+
+// Para detener un contenedor
+docker stop nombre_contenedor
+
+// Para visualizar los contenedores
+sudo docker ps
+
+// Nos permite ver el estado de los contenedores
+sudo docker ps -a
+
+// Nos permite visualizar toda la metadata del contenedor, osea la cantidad disco que tiene
+docker inspect -f '{{json .Config.Env}}' nombreDelContenedor
+
+//Renombrar un contendor
+docker rename nombre_contenedor_anterior nombre_contenedor_nuevo
+
+// Mirar el output de un contendor
+docker logs nombre_contenedor
+
+// Eliminar un contenedor
+docker rm nombre_contenedor
+
+// Eliminar todos los contenedores 
+docker rm $(docker ps -aq)
+
+// Listar los ids de los contenedores
+docker ps -aq
+
+// Hacer que todos los comandos se realicen en la misma terminar
+docker exec -it nombre_contenedor nombre_comando
+
+[Puertos]
+
+// Con este comando enrutamos el puerto [puerto_contenedor] y docker lo redirecciona al [puerto_contenedor]
+[puerto_mi_maquina]: Este puerto es un puerto de la maquina donde estan los contenedores la cual cuando vayamos a ingresar por la web este es el puerto que se publicara y será redirigido por docker a el puerto del server dentro del contenedor 
+[puerto_contenedor]: Este es el puerto del servidor que se publicara dentro del contenedor 
+docker run -d --name nombre_contenedor -p puerto_mi_maquina:puerto_contenedor nombre_imagen
+
+
+-> Para crear un entorno de desarrollo
+Se crea un Dockerfile donde va ha contener todas las sentencias que se ejecutaran para la imagen
+// Comando para construir la imagen propia de node
+[.]-> Hace referencia donde esta el Dockerfile para ejecutarlo 
+docker build -t nombre_imagen_nueva .
+// Procedemos a crear el container
+[--rm] Es para que elimine el contenedor cuando se detenga
+docker run --rm  --name nombre_container_nuevo -p 3000:3000 nombre_imagen
+
+
+
+:::::::::::::::::::::::::::::::::::::::::SISTEMAS OPERATIVOS::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::LINUX
+:::::::::::::::::::::::::::::::::::::::::::
+
+::::::::Comandos::::::::
+[Revisar procesos corriendo del tomcat]
+ps aux | grep tomcat
+
+[Eliminar paquetes]
+sudo apt-get --purge remove ...nombre del paquete
+
+[Encontrar pid por puerto]
+netstat -ano | findstr :4200
+
+[Muestra todos los procesos que se ejecutan en mi sesión]
+ps
+
+[Muestra todos los procesos de todas las sesiones]
+ps -fea 

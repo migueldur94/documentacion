@@ -1,0 +1,22 @@
+select
+	 '<property name="'
+	||(split_part(column_name,'_',1)||replace(initcap(split_part(column_name,'_',2) || ' ' || split_part(column_name,'_',3) || ' ' || split_part(column_name,'_',4) || ' ' || split_part(column_name,'_',5)),' ',''))
+	||'" type="'
+	||case when data_type='integer' then 'java.lang.Integer'
+		  when data_type='smallint' then 'java.lang.Short'
+		  when data_type='double precision' then 'java.util.Double'
+		  when data_type='bigint' then 'java.lang.Long'
+		  when data_type='date' then 'java.util.Date'
+		  when data_type='character varying' then 'java.lang.String'
+		  when data_type='timestamp without time zone' then 'java.util.Date'
+	  end
+	||'">
+			<column name="'
+	||column_name
+	||'" not-null="'
+	||case when is_nullable='YES' then 'false' else 'true' end 
+	||'" />
+		</property>'
+--,data_type,column_name
+from information_schema.columns
+where table_schema='administrativo' and table_name='mipres_prescripcion_complementario'

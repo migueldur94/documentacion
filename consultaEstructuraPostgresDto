@@ -1,0 +1,19 @@
+select 'private ' 
+	|| case when data_type='bigint' and is_nullable='NO' then 'long'
+			when data_type='bigint' and is_nullable='YES' then 'Long'
+			when data_type='integer' and is_nullable='NO' then 'int'
+			when data_type='integer' and is_nullable='YES' then 'Integer'
+			when data_type='smallint' and is_nullable='NO' then 'short'
+			when data_type='smallint' and is_nullable='YES' then 'Short'
+			when data_type='double precision' and is_nullable='NO' then 'double'
+			when data_type='double precision' and is_nullable='YES' then 'Double'
+			when data_type='date' then 'String'
+			when data_type='character varying' then 'String'
+		else
+			''
+		end
+	|| ' ' 
+	|| case when column_name is null then '' else (split_part(column_name,'_',1)||replace(initcap(split_part(column_name,'_',2) || ' ' || split_part(column_name,'_',3) || ' ' || split_part(column_name,'_',4) || ' ' || split_part(column_name,'_',5)),' ','')) end
+	|| ';'--,data_type,column_name
+from information_schema.columns
+where table_schema='administrativo' and table_name='mipres_prescripcion_procedimiento'

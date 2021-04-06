@@ -1,0 +1,39 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::SCRUM
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+3 Pilares 
+-> Transparencia
+-> Inspección
+-> Adaptabilidad
+
+5 Valores
+-> Enfoque
+-> Respeto
+-> Apertura
+-> Coraje
+-> Compromiso
+
+3 Roles
+-> Product owner
+-> Team 
+-> Scrum Master
+
+Evento
+-> Spring: Máximo 30 días
+	-> Planificación
+	-> Scrum diario
+	-> La revisión del spring: El equipo revisa su progreso y se invita a todos los interesados
+	-> Retrospectiva: El equipo se reune para mirar como son mas eficientes
+
+Artefactos
+-> Bitacora del producto: Se listan todas las tareas a nivel general y se colocan a nivel de prioridad
+-> Bitacora del spring: Es un conjunto de tareas creadas por el equipo de desarrollo
+-> Incremento: Es el resultado final de cada spring
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::PATRONES DISEÑO
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+https://refactoring.guru/es/design-patterns/java
