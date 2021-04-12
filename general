@@ -97,6 +97,7 @@ sudo kill $(sudo lsof -t -i:4200)
 --------------------------------------------
 fuser -n tcp "4200"<-Puerto
 kill -9 "7425"<-PID
+ps -ax |grep tomcat
 --------------------------------------------
 
 [Compilacion del proyecto]
