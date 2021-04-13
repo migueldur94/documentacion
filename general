@@ -503,6 +503,9 @@ Pagina --> https://hub.docker.com/
 
 ::::::::Comandos Linux::::::::
 
+//Install
+bibliografia ===> https://www.hostinger.com/tutorials/how-to-install-docker-on-ubuntu
+
 //Para que el usuario de la sesión de linux no tenga que esta colocando sudo al inicio de las sentencias
 sudo usermod -aG docker nombre_usuario
 -> Despues cerramos sesión para que tome los cambios
