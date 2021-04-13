@@ -82,3 +82,10 @@ Este principio funciona con el ejemplo anterior, si necesitamos consultar un usu
 para consultar y otro para crear, ya que cuando vayamos a necesita el consultar un usuario desde otro lugar tendría que implementar el crear
 D – Dependency Inversion Principle (DIP)
 no depender directamente de una clase si no de una interface
+
+
+
+
+
+::::::::::::::::::::DUDAS
+-> Why does Java force me to instance Exception?, when I create a personal class to extends from exception, but when I extends from RuntimeException, it doesn't happend.

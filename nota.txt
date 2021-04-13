@@ -11,6 +11,11 @@ SOFTBNM9
 
 https://software.opensuse.org/download/package?project=isv:ownCloud:desktop&package=owncloud-client
 
+LLuvia de idea
+-> Crear scripts para installar aplicativos
+-> Crear videos cortos de 5 minutos o 2, donde se explique como por ejemplo configurar los ids de las tablas, como crear una entity...
+-> Crear un aplicativo que le ayude al desarrollador a crear partes rápidamente
+
 =====================
 ========EQUILATERO
 =====================
@@ -41,8 +46,9 @@ Android:
 Back-end
 Java: Este proyecto maneja la tecnología de socket
 
-2- Mensaje de cortina - marcar leído (eliminar mensaje de cortina)
-Gmail y Facebook cuando se de eliminar que cierre sesión
+1-> Notificaciones eliminar por grupo
+2-> En la pantalla de notificaciones mostrar la imagen
+3-> Mostrar la imagen enviada del chat
 
 
 Ultimo commit:
@@ -54,16 +60,13 @@ qazwsx12A.
 root
 tienda_click_produccion
 
-ALTER TABLE tienda_click_db_test.notificacion ADD URL_IMAGEN varchar(200) NULL;
-
-
 
 Corrido en nativo
-ALTER TABLE tienda_click_db_test.chat_detalle ADD SW_VISIBLE_ROL_CLIENTE smallint(6) DEFAULT 1 NOT NULL;
-
 
 Producción
-
+ALTER TABLE tienda_click_db_test.chat_detalle ADD SW_VISIBLE_ROL_CLIENTE smallint(6) DEFAULT 1 NOT NULL;
+ALTER TABLE tienda_click_db_test.notificacion ADD URL_IMAGEN varchar(200) NULL;
+ALTER TABLE tienda_click_db_test.usuario ADD TOKEN_APPLE varchar(50) NULL;
 
 
 =====================
@@ -267,15 +270,15 @@ Revisar lo de company en person en la tabla tambien
 02 Febrero
 20:30-24:00 I met with Hector and implemented the process about testing 
 04 Febrero
-20:30-23:00 I passed to component person tab
+20:00-23:00 I passed to component person tab
 08 Febrero
 21:00-24:00 I implemented the list of results of alcohol
 23 Febrero
 22:00-24:00 I implemented the box percentage 
 24 Febrero 
-22:30-23:00 I fixed percentage box
+22:00-23:00 I fixed percentage box
 07 Marzo
-21:00-22:30 I met with Hector to talk about new things for implementing in the system
+21:00-23:00 I met with Hector to talk about new things for implementing in the system
 10 Marzo 
 21:30-24:00 I implemented the field percentage drug and alcohol in the page distribution-list and the main list of person was updated by button acept 
 18 Marzo
@@ -283,17 +286,20 @@ Revisar lo de company en person en la tabla tambien
 20 Marzo
 21-24 I advanced in the implementation of page history
 24 Marzo 
-20:30-22:00 I met with Hector and improve the history page
+20:30-22:30 I met with Hector and improve the history page
 28 Marzo 
-12:00-16:30 I worked in separeted popup from testing and pass it to component
+12:00-17:00 I worked in separeted popup from testing and pass it to component
+06 Abril
+22:00-23:00 I worked to implemented the new way to identify if the result test is DRUG or ALCOHOL
+07 Abril
+21:30-23 I hide the component result when the code of form is diferent DRUG and ALCOHOL
+11 Abril
+21:00-22:30 I worked in document that Melvin send me
 	
-Icono de testing en historia , y sacar a componente el popup y implementar la opción de descargar y utilizar para descargar el mismo que esta en hub
-Icono de descarga global
-Opción para cancelar un random-pool, pero debe estar en estado new o runing, y solo se muestra el botón de cancelar cuando esta en estado new or running
+-> Cuando mande a cancelar, no se puedan subir archivos en el random pool, pero si descargar
+-> Crear los campos en la pantalla de empresa del reporte de miss
+-> Cuando se va a cancelar que se pueda confirmar si realmente quiere cancelar
 
-
-1) Crear servicio rest para descargar todos las pruebas
-2) 
 
 
 mvn spring-boot:run
