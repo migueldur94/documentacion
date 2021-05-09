@@ -294,11 +294,32 @@ Revisar lo de company en person en la tabla tambien
 07 Abril
 21:30-23 I hide the component result when the code of form is diferent DRUG and ALCOHOL
 11 Abril
-21:00-22:30 I worked in document that Melvin send me
-	
+21:00-23:00 I worked in document that Melvin send me
+18 Abril
+08:00-10:30 I implemented the option to cancel random-pool and components take a count this status
+20 Abril
+21:00-23:00 I met with Hector to talk about report and started with change of the report
+21 Abril 
+22:30-23:30 I met with Hector to talk about report and continous with the report
+28 Abril 
+22:00-24:00 I finished the report
+29 Abril
+21:30-22:00 I implemented the filter
+3 Mayo
+21:30-23:00 I met with Hecto to talk about some issues
+
+
+
 -> Cuando mande a cancelar, no se puedan subir archivos en el random pool, pero si descargar
+- Cuando se ingresa por testing, la idea es que no aparezca el random-pool cancelado
+
 -> Crear los campos en la pantalla de empresa del reporte de miss
+
 -> Cuando se va a cancelar que se pueda confirmar si realmente quiere cancelar
+-> company crear los campos
+-> pasar a componente la tabla de drug para drug y alcohol
+-> crear la tabla de alcohol en mis
+-> otro grafico de barras con los días de la semana y arranca desde el lunes y las tres primeras letras se van a visualizar y igual alcohol testing vs drug testing
 
 
 
