@@ -1,13 +1,4 @@
-::::::::::::::::::::::::::::::::::::::::::::::::::
-:::::::::::::CREANDOSOFT
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
--> Skype
-clave:zuZ0#p58
-
--> Correo desarrollo
-desarrollo.creandosoft@gmail.com
-SOFTBNM9
 
 https://software.opensuse.org/download/package?project=isv:ownCloud:desktop&package=owncloud-client
 
@@ -16,14 +7,6 @@ LLuvia de idea
 -> Crear videos cortos de 5 minutos o 2, donde se explique como por ejemplo configurar los ids de las tablas, como crear una entity...
 -> Crear un aplicativo que le ayude al desarrollador a crear partes rápidamente
 
-=====================
-========EQUILATERO
-=====================
-
-- arq.juancarlosjaimes2019 = 98b6ae12cf1150e11405778a9e89b9da8661cc1aa828cad419b5dd047c481f01
-
-usuario: manuelasoler14@gmail.com
-clave: tilito25
 =====================
 ========SGC
 =====================
